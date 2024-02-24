@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style>
+      body {
+        height: 1500px;
+      }
+
+      .tic-tac-toe-entire-flex {
+        display: flex;
+        justify-content: center;
+      }
+
+      .threexthree-grid {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .threexthree-grid .one-one,
+      .threexthree-grid .one-two,
+      .threexthree-grid .one-three,
+      .threexthree-grid .two-one,
+      .threexthree-grid .two-two,
+      .threexthree-grid .two-three,
+      .threexthree-grid .three-one,
+      .threexthree-grid .three-two,
+      .threexthree-grid .three-three  {
+        height: 200px;
+        width: 200px;
+        border-bottom: 10px solid grey;
+        background-color: lightblue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .grey-line {
+        height: 620px;
+        width: 10px;
+        background-color: grey;
+      }
+
+      .threexthree-grid .three-one,
+      .threexthree-grid .three-two,
+      .threexthree-grid .three-three {
+        border-bottom: 10px solid white;
+
+      }
+
+      .one-one {
+        display: flex;
+        justify-content: center;
+      }
+
+      /*   tic-tac-toe grid above, play game button below   */
+      .play-game-container {
+        margin-top: 90px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .play-game {
+        padding: 20px;
+        font-size: 20px;
+        background-color: rgb(255, 94, 255);
+        border: none;
+        border-radius: 7px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tic-tac-toe-entire-flex">
+      <div class="threexthree-grid">
+        <div class="one-one"><div></div></div>
+        <div class="two-one"><div></div></div>
+        <div class="three-one"><div></div></div>
+      </div>
+      <div class="grey-line"></div>
+      <div class="threexthree-grid">
+        <div class="one-two"><div></div></div>
+        <div class="two-two"><div></div></div>
+        <div class="three-two"><div></div></div>
+      </div>
+      <div class="grey-line"></div>
+      <div class="threexthree-grid">
+        <div class="one-three"><div></div></div>
+        <div class="two-three"><div></div></div>
+        <div class="three-three"><div></div></div>
+      </div>
+    </div>
+
+    <div class="play-game-container">
+      <button class="play-game">Play game!</button>
+    </div>
+
+    <script>
+
+    </script>
+  </body>
+</html>
+
+<!--Time to make some javascript and make the play game button 
+have an x and o select with a place to put, and also computer moves.-->
