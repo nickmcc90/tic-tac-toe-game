@@ -1,73 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
-    <style>
-      body {
-        height: 1500px;
-      }
-
-      .tic-tac-toe-entire-flex {
-        display: flex;
-        justify-content: center;
-      }
-
-      .threexthree-grid {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .threexthree-grid .one-one,
-      .threexthree-grid .one-two,
-      .threexthree-grid .one-three,
-      .threexthree-grid .two-one,
-      .threexthree-grid .two-two,
-      .threexthree-grid .two-three,
-      .threexthree-grid .three-one,
-      .threexthree-grid .three-two,
-      .threexthree-grid .three-three  {
-        height: 200px;
-        width: 200px;
-        border-bottom: 10px solid grey;
-        background-color: lightblue;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .grey-line {
-        height: 620px;
-        width: 10px;
-        background-color: grey;
-      }
-
-      .threexthree-grid .three-one,
-      .threexthree-grid .three-two,
-      .threexthree-grid .three-three {
-        border-bottom: 10px solid white;
-
-      }
-
-      .one-one {
-        display: flex;
-        justify-content: center;
-      }
-
-      /*   tic-tac-toe grid above, play game button below   */
-      .play-game-container {
-        margin-top: 90px;
-        display: flex;
-        justify-content: center;
-      }
-
-      .play-game {
-        padding: 20px;
-        font-size: 20px;
-        background-color: rgb(255, 94, 255);
-        border: none;
-        border-radius: 7px;
-      }
-    </style>
+    <title>Tic Tac Toe Game</title>
+    <style></style>
+    <link rel="stylesheet" href="styles/tictacgrid.css">
   </head>
   <body>
     <div class="tic-tac-toe-entire-flex">
@@ -90,15 +26,73 @@
       </div>
     </div>
 
-    <div class="play-game-container">
-      <button class="play-game">Play game!</button>
+    <div class="play-game-container js-play-game-container">
+      <button class="play-game js-play-game">Play game!</button>
     </div>
 
-    <script>
+    <div class="question-container js-question-container"></div>
 
+    <script>
+      document.querySelector('.js-play-game').addEventListener('click', () => {
+        askWhoIsFirst();
+      })
+
+      function askWhoIsFirst() {
+        const gameSpace = document.querySelector('.js-play-game-container');
+        gameSpace.innerHTML = ''; // button disappears
+
+        const question = `
+        <div class='question'>Who shall go first in this Tic Tac Toe game?</div>
+        <div class="decision-space js-decision-space">
+          <button class='js-human human-button'>Me</button>
+          <button class='js-computer computer-button'>Computer</button>
+        </div>
+        `;
+
+        document.querySelector('.js-question-container').innerHTML = question;    // gets replaced with questions and decisions
+
+        document.querySelector('.js-human').addEventListener('click', () => {
+
+        })
+
+        document.querySelector('.js-computer').addEventListener('click', () => {
+
+        })
+      }
     </script>
   </body>
 </html>
 
 <!--Time to make some javascript and make the play game button 
 have an x and o select with a place to put, and also computer moves.-->
+
+
+<!--Game plan for constructing the code for the game:
+
+We will have a computer function, a human function, and a main display function.
+In the beginning, if the computer button is hit:
+  We run the computer function, which will call the main display function, and also
+  pass a the value that it computed into the main display function.
+If the 'Me' button is hit:
+  We go straight to the main display function, which will make the tic squares
+  active, and we wait for a response click on those squares to proceed to the
+  computer function. A click on a square will call the main display function
+  with its position value passed in. Basically the main display function is
+  only for activating the squares. If we click a square 
+
+Second thought, we can have a computer function, an activate squares function (
+that only runs once), and a display function. Upon hitting the computer function,
+it runs the activate squares function, then it passes a value into the display
+squares function. Upon hitting the me button, we just run the activate squares
+function.
+
+**The activate squares function adds event listeners to the squares once the
+'me' or 'computer' button is pressed in the beginning.
+
+**We will need fixed position and absolute position elements to cover these squares
+in certain situations that we don't want the user touching the squares.
+
+Let's think about the variables to be passed in to the display function and what
+the scope of these variables will be next time.
+
+-->

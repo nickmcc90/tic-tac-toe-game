@@ -1,0 +1,80 @@
+body {
+  height: 1500px;
+}
+
+.tic-tac-toe-entire-flex {
+  display: flex;
+  justify-content: center;
+}
+
+.threexthree-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.threexthree-grid .one-one,
+.threexthree-grid .one-two,
+.threexthree-grid .one-three,
+.threexthree-grid .two-one,
+.threexthree-grid .two-two,
+.threexthree-grid .two-three,
+.threexthree-grid .three-one,
+.threexthree-grid .three-two,
+.threexthree-grid .three-three  {
+  height: 200px;
+  width: 200px;
+  border-bottom: 10px solid grey;
+  background-color: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grey-line {
+  height: 620px;
+  width: 10px;
+  background-color: grey;
+}
+
+.threexthree-grid .three-one,
+.threexthree-grid .three-two,
+.threexthree-grid .three-three {
+  border-bottom: 10px solid white;
+
+}
+
+.one-one {
+  display: flex;
+  justify-content: center;
+}
+
+/*   tic-tac-toe grid above, play game button below   */
+.question-container,
+.play-game-container {
+  margin-top: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 15px;
+}
+
+.human-button,
+.computer-button,
+.play-game {
+  padding: 20px;
+  font-size: 20px;
+  background-color: rgb(255, 94, 255);
+  border: none;
+  border-radius: 7px;
+}
+
+.decision-space {
+  display: flex;
+  justify-content: space-around;
+  width: 300px;
+}
+
+.question {
+  font-size: 19px;
+}
