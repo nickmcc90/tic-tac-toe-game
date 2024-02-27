@@ -1,0 +1,23 @@
+.one,
+.two,
+.three,
+.four,
+.five,
+.six,
+.seven,
+.eight,
+.nine {
+  font-size: 100px;
+}
+
+.player-text-container {
+  position: fixed;
+  right: 200px;
+  top: 200px;
+  width: 150px;
+}
+
+.player-text {
+  position: absolute;
+  font-size: 20px;
+}

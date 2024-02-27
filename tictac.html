@@ -4,25 +4,26 @@
     <title>Tic Tac Toe Game</title>
     <style></style>
     <link rel="stylesheet" href="styles/tictacgrid.css">
+    <link rel="stylesheet" href="styles/answerstyling.css">
   </head>
   <body>
     <div class="tic-tac-toe-entire-flex">
       <div class="threexthree-grid">
-        <div class="one-one"><div></div></div>
-        <div class="two-one"><div></div></div>
-        <div class="three-one"><div></div></div>
+        <div class="one-one js-one-one"><div class="one js-one"></div></div>
+        <div class="two-one js-two-one"><div class="two js-two"></div></div>
+        <div class="three-one js-three-one"><div class="three js-three"></div></div>
       </div>
       <div class="grey-line"></div>
       <div class="threexthree-grid">
-        <div class="one-two"><div></div></div>
-        <div class="two-two"><div></div></div>
-        <div class="three-two"><div></div></div>
+        <div class="one-two js-one-two"><div class="four js-four"></div></div>
+        <div class="two-two js-two-two"><div class="five js-five"></div></div>
+        <div class="three-two js-three-two"><div class="six js-six"></div></div>
       </div>
       <div class="grey-line"></div>
       <div class="threexthree-grid">
-        <div class="one-three"><div></div></div>
-        <div class="two-three"><div></div></div>
-        <div class="three-three"><div></div></div>
+        <div class="one-three js-one-three"><div class="seven js-seven"></div></div>
+        <div class="two-three js-two-three"><div class="eight js-eight"></div></div>
+        <div class="three-three js-three-three"><div class="nine js-nine"></div></div>
       </div>
     </div>
 
@@ -32,34 +33,13 @@
 
     <div class="question-container js-question-container"></div>
 
-    <script>
-      document.querySelector('.js-play-game').addEventListener('click', () => {
-        askWhoIsFirst();
-      })
+    <div class="computer-thinking js-computer-thinking"></div>
+    <div class="timer js-timer"></div>
 
-      function askWhoIsFirst() {
-        const gameSpace = document.querySelector('.js-play-game-container');
-        gameSpace.innerHTML = ''; // button disappears
+    <div class="player-text-container js-player-text-container"></div>
 
-        const question = `
-        <div class='question'>Who shall go first in this Tic Tac Toe game?</div>
-        <div class="decision-space js-decision-space">
-          <button class='js-human human-button'>Me</button>
-          <button class='js-computer computer-button'>Computer</button>
-        </div>
-        `;
-
-        document.querySelector('.js-question-container').innerHTML = question;    // gets replaced with questions and decisions
-
-        document.querySelector('.js-human').addEventListener('click', () => {
-
-        })
-
-        document.querySelector('.js-computer').addEventListener('click', () => {
-
-        })
-      }
-    </script>
+    <script src="scripts/beginning.js"></script>
+    <script src="scripts/code.js"></script>
   </body>
 </html>
 
@@ -96,3 +76,7 @@ Let's think about the variables to be passed in to the display function and what
 the scope of these variables will be next time.
 
 -->
+
+<!--We are in the middle of code.js adding event listeners to the squares... we gotta add fixed elements
+to protect these squares now during the computer move... we also gotta find a way to define the player's choice
+of x or o and make the computer's move the opposite choice consistently.-->
