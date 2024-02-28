@@ -1,7 +1,3 @@
-body {
-  height: 1500px;
-}
-
 .tic-tac-toe-entire-flex {
   display: flex;
   justify-content: center;

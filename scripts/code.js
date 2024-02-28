@@ -1,12 +1,19 @@
-const classes = ['.js-one', '.js-two', '.js-three', '.js-four', '.js-five', '.js-six', '.js-seven', '.js-eight', '.js-nine'];
+const classes = ['.js-one-one', '.js-two-one', '.js-three-one', '.js-one-two', '.js-two-two', '.js-three-two', '.js-one-three', '.js-two-three', '.js-three-three'];
 
 classes.forEach((value, index) => {
-  document.querySelector(value)
+  document.querySelector(value).addEventListener('click', () => {
+    displaySquares(value, 'x');
+  })
 })
 
-
-
 // above is the square event listeners....^^^
+
+squareCoverRemove();
+
+
+squareCoverAdd();
+
+
 
 let timerId;
 const determinedChoice = Math.random();
@@ -37,16 +44,10 @@ function computerMove() {
     space = '.js-five';
   };
 
-  if(determinedChoice < 0.5) {
-    choice = 'x';
-  } else {
-    choice = 'o';
-  }
-
   computerThinking();
 
   timerId = setTimeout(() => {
-    displaySquares(space, choice);
+    displaySquares(space, 'O');
   }, 4000);
 }
 
@@ -76,4 +77,13 @@ function playerSelectText() {     // trying a new format of adding html with js
   playerText.textContent = "Choose a square..... try to beat the computer!";
   playerText.className = 'player-text';
   document.querySelector('.js-player-text-container').append(playerText);
+}
+
+
+function squareCoverRemove() {
+  document.querySelector('.cover-two').classList.remove('cover');
+}
+
+function squareCoverAdd() {
+  document.querySelector('.cover-two').classList.add('cover');
 }

@@ -21,3 +21,14 @@
   position: absolute;
   font-size: 20px;
 }
+
+/* cover */
+
+.cover {
+  position: fixed;
+  top: 0px;
+  height: 700px;
+  left: 450px;
+  right: 450px;
+  background-color: rgba(white, 0);
+}
