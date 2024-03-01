@@ -1,17 +1,17 @@
 const classes = ['.js-one-one', '.js-two-one', '.js-three-one', '.js-one-two', '.js-two-two', '.js-three-two', '.js-one-three', '.js-two-three', '.js-three-three'];
 
+const answerSlots = ['.js-one', '.js-two', '.js-three', '.js-four', '.js-five', '.js-six', '.js-seven', '.js-eight', '.js-nine'];
+
 classes.forEach((value, index) => {
   document.querySelector(value).addEventListener('click', () => {
-    displaySquares(value, 'x');
+    displaySquares(answerSlots[index], 'X');
+    squareCoverAdd();
+    playerSelectTextRemove();
+    computerMove();
   })
 })
 
 // above is the square event listeners....^^^
-
-squareCoverRemove();
-
-
-squareCoverAdd();
 
 
 
@@ -20,7 +20,6 @@ const determinedChoice = Math.random();
 function computerMove() {
   questionContainerDelete();
   let space;
-  let choice;
   const random = Math.random();
   if(random < 0.1) {
     space = '.js-one';
@@ -51,9 +50,25 @@ function computerMove() {
   }, 4000);
 }
 
+let i = 0;    // variable for if the output chosen by the computer has been chosen before
+let catcher = {};
 function displaySquares(output, choice) {
-  document.querySelector(output).innerHTML = choice;
-}
+  if(output === 'none') {       // this is a one-off condition if we hit the 'Me' button at the beginning
+    console.log('Begin!')
+  } else {
+    while(output in catcher) {          // if the computer chooses a slot already, we make a different one. In operator only works with objects.
+      output = answerSlots[i];
+      i++;
+      console.log(output);
+    }
+    i = 0;
+    catcher[output] = true;     // storing the output into array. putting the output in AFTER we check to see if it's already in there.
+    console.log(catcher);     // debugging
+      document.querySelector(output).innerHTML = choice;
+    }
+    squareCoverRemove();                    // once this function is done, the cover gets removed.
+  }
+
 
 function computerThinking() {
   const thinkingElement = document.querySelector('.js-computer-thinking');
@@ -75,8 +90,13 @@ function computerThinking() {
 function playerSelectText() {     // trying a new format of adding html with js
   const playerText = document.createElement("div");
   playerText.textContent = "Choose a square..... try to beat the computer!";
-  playerText.className = 'player-text';
+  playerText.className = 'player-text js-player-text';
   document.querySelector('.js-player-text-container').append(playerText);
+}
+
+function playerSelectTextRemove() {
+  document.querySelector('.js-player-text').remove();
+
 }
 
 

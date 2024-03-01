@@ -17,7 +17,9 @@ function askWhoIsFirst() {
   document.querySelector('.js-question-container').innerHTML = question;    // gets replaced with questions and decisions
 
   document.querySelector('.js-human').addEventListener('click', () => {
-    displaySquares();
+    questionContainerDelete();
+    displaySquares('none', 'none');
+    playerSelectText();
   })
 
   document.querySelector('.js-computer').addEventListener('click', () => {
