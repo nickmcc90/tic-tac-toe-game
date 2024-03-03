@@ -19,6 +19,7 @@ function askWhoIsFirst() {
   document.querySelector('.js-human').addEventListener('click', () => {
     questionContainerDelete();
     displaySquares('none', 'none');
+    squareCoverRemove();
     playerSelectText();
   })
 

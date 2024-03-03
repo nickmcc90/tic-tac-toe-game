@@ -32,3 +32,12 @@
   right: 450px;
   background-color: rgba(white, 0);
 }
+
+/* styling for when the user chooses an already chosen square. */
+.square-full {
+  position: absolute;
+  left: 400px;
+  top: 200px;
+  font-size: 25px;
+  color: green;
+}

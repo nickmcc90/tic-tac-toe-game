@@ -4,10 +4,14 @@ const answerSlots = ['.js-one', '.js-two', '.js-three', '.js-four', '.js-five', 
 
 classes.forEach((value, index) => {
   document.querySelector(value).addEventListener('click', () => {
-    displaySquares(answerSlots[index], 'X');
-    squareCoverAdd();
-    playerSelectTextRemove();
-    computerMove();
+    if(displaySquares(answerSlots[index], 'X')) {     // displaySquares will return a true or false value. It will return false if the human chooses an already picked square.
+      squareCoverAdd();
+      didWeWin();     // we check to see if we won AFTER we put our choice of square into displaySquares().
+      playerSelectTextRemove();
+      computerMove();
+    } else {
+      squareAlreadyFull();    // displays a message to user that you can't pick an already chosen square
+    }
   })
 })
 
@@ -47,7 +51,10 @@ function computerMove() {
 
   timerId = setTimeout(() => {
     displaySquares(space, 'O');
+    didWeWin();    // We check to see if the computer won AFTER it placed it's move.
   }, 4000);
+
+
 }
 
 let i = 0;    // variable for if the output chosen by the computer has been chosen before
@@ -55,18 +62,24 @@ let catcher = {};
 function displaySquares(output, choice) {
   if(output === 'none') {       // this is a one-off condition if we hit the 'Me' button at the beginning
     console.log('Begin!')
+    return true;      // need to return true here from this avenue.
   } else {
-    while(output in catcher) {          // if the computer chooses a slot already, we make a different one. In operator only works with objects.
-      output = answerSlots[i];
-      i++;
-      console.log(output);
+    if(catcher[output] === true && choice === 'X') {    // this is for the human, if they click a square thats already taken. Humans only choose x.
+        return false;       // the function will return false if the human chooses a picked square.
+    } else {    // this is for the computer
+      while(output in catcher) {          // if the computer chooses a slot already, we make a different one. In operator only works with objects.
+        output = answerSlots[i];
+        i++;
+        console.log(output);
+      }
+      i = 0;
+      catcher[output] = true;     // storing the output into array. putting the output in AFTER we check to see if it's already in there.
+      console.log(catcher);     // debugging
+        document.querySelector(output).innerHTML = choice;
+      }
+      squareCoverRemove();                    // once this function is done, the cover gets removed.
+      return true;           // this function will return true if something hasn't been chosen twice, or the computer is making a move.
     }
-    i = 0;
-    catcher[output] = true;     // storing the output into array. putting the output in AFTER we check to see if it's already in there.
-    console.log(catcher);     // debugging
-      document.querySelector(output).innerHTML = choice;
-    }
-    squareCoverRemove();                    // once this function is done, the cover gets removed.
   }
 
 
@@ -106,4 +119,22 @@ function squareCoverRemove() {
 
 function squareCoverAdd() {
   document.querySelector('.cover-two').classList.add('cover');
+}
+
+const boxValue = {};
+function didWeWin () {
+  answerSlots.forEach((value, index) => {
+    index++;
+    boxValue[index] = document.querySelector(value).innerHTML;
+  })
+  console.log(boxValue);
+}
+
+
+function squareAlreadyFull() {
+  const sqaureFullElement = document.querySelector('.js-square-full');
+  sqaureFullElement.innerHTML = "Please choose a square that has not been filled.";
+  setTimeout(() => {
+    sqaureFullElement.innerHTML = '';
+  }, 2000);
 }
