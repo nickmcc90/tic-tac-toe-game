@@ -75,7 +75,7 @@ function displaySquares(output, choice) {
       i = 0;
       catcher[output] = true;     // storing the output into array. putting the output in AFTER we check to see if it's already in there.
       console.log(catcher);     // debugging
-        document.querySelector(output).innerHTML = choice;
+      document.querySelector(output).innerHTML = choice;
       }
       squareCoverRemove();                    // once this function is done, the cover gets removed.
       return true;           // this function will return true if something hasn't been chosen twice, or the computer is making a move.
@@ -121,15 +121,6 @@ function squareCoverAdd() {
   document.querySelector('.cover-two').classList.add('cover');
 }
 
-const boxValue = {};
-function didWeWin () {
-  answerSlots.forEach((value, index) => {
-    index++;
-    boxValue[index] = document.querySelector(value).innerHTML;
-  })
-  console.log(boxValue);
-}
-
 
 function squareAlreadyFull() {
   const sqaureFullElement = document.querySelector('.js-square-full');
@@ -137,4 +128,71 @@ function squareAlreadyFull() {
   setTimeout(() => {
     sqaureFullElement.innerHTML = '';
   }, 2000);
+}
+
+const boxValue = {};
+function didWeWin () {
+  answerSlots.forEach((value, index) => {
+    index++;
+    boxValue[index] = document.querySelector(value).innerHTML;
+  })
+  console.log(boxValue);
+  
+  // There are 16 possible win combinations.... I gotta list them all out here, so forgive the code for being extra long.
+  let size = Object.keys(catcher).length;   
+
+  // first checking the vertical possibilities...
+  if(boxValue[1] === "X" && boxValue[2] === "X" && boxValue[3] === "X") {
+    reloader(1);    // signifies a win
+  } else if(boxValue[4] === "X" && boxValue[5] === "X" && boxValue[6] === "X") {
+      reloader(1);
+  } else if(boxValue[7] === "X" && boxValue[8] === "X" && boxValue[9] === "X") {
+      reloader(1);
+  } else if(boxValue[1] === "O" && boxValue[2] === "O" && boxValue[3] === "O") {
+      reloader(-1);   // signifies a loss
+  } else if(boxValue[4] === "O" && boxValue[5] === "O" && boxValue[6] === "O") {
+      reloader(-1);
+  } else if(boxValue[7] === "O" && boxValue[8] === "O" && boxValue[9] === "O") {
+      reloader(-1);
+  }  // now checking the horizontal possibilities....
+    else if(boxValue[1] === "X" && boxValue[4] === "X" && boxValue[7] === "X") {
+      reloader(1);
+  } else if(boxValue[2] === "X" && boxValue[5] === "X" && boxValue[8] === "X") {
+      reloader(1);
+  } else if(boxValue[3] === "X" && boxValue[6] === "X" && boxValue[9] === "X") {
+      reloader(1);
+  } else if(boxValue[1] === "O" && boxValue[4] === "O" && boxValue[7] === "O") {
+      reloader(-1);
+  } else if(boxValue[2] === "O" && boxValue[5] === "O" && boxValue[8] === "O") {
+      reloader(-1);
+  } else if(boxValue[3] === "O" && boxValue[6] === "O" && boxValue[9] === "O") {
+      reloader(-1);
+  } // finally, checking the diagonal possibilities....
+    else if(boxValue[1] === "X" && boxValue[5] === "X" && boxValue[9] === "X") {
+      reloader(1);
+  } else if(boxValue[3] === "X" && boxValue[5] === "X" && boxValue[7] === "X") {
+      reloader(1);
+  } else if(boxValue[1] === "O" && boxValue[5] === "O" && boxValue[9] === "O") {
+      reloader(-1);
+  } else if(boxValue[3] === "O" && boxValue[5] === "O" && boxValue[7] === "O") {
+      reloader(-1);
+  } 
+
+
+  
+
+  if((size === 9)) {      // if the catcher object has 9 values, that's means that the board is filled up. Tie! This has to run last.
+    reloader(0)   // signifies a tie
+    console.log("It's a tie!");
+  } 
+
+  console.log(size);   // this Object.keys(object).length allows us to see the size of an object.
+
+}
+
+
+function reloader(result) {
+  
+
+  location.reload();
 }
