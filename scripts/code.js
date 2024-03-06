@@ -6,8 +6,8 @@ classes.forEach((value, index) => {
   document.querySelector(value).addEventListener('click', () => {
     if(displaySquares(answerSlots[index], 'X')) {     // displaySquares will return a true or false value. It will return false if the human chooses an already picked square.
       squareCoverAdd();
-      didWeWin();     // we check to see if we won AFTER we put our choice of square into displaySquares().
       playerSelectTextRemove();
+      didWeWin();     // we check to see if we won AFTER we put our choice of square into displaySquares().
       computerMove();
     } else {
       squareAlreadyFull();    // displays a message to user that you can't pick an already chosen square
@@ -47,12 +47,17 @@ function computerMove() {
     space = '.js-five';
   };
 
-  computerThinking();
+  if(!winnerVariable) {     // the computer won't think of another move or make a move if someone has already won or the tiles are full.
+    computerThinking();
 
-  timerId = setTimeout(() => {
-    displaySquares(space, 'O');
-    didWeWin();    // We check to see if the computer won AFTER it placed it's move.
-  }, 4000);
+
+    timerId = setTimeout(() => {
+      displaySquares(space, 'O');
+      didWeWin();    // We check to see if the computer won AFTER it placed it's move.
+    }, 4000);
+  }
+
+
 
 
 }
@@ -96,7 +101,9 @@ function computerThinking() {
     clearInterval(intId)
     thinkingElement.innerHTML = '';
     document.querySelector('.js-timer').innerHTML = '';
-    playerSelectText(); 
+    if(!winnerVariable){            // only runs if there hasn't been declared a winner.
+      playerSelectText();     
+    }
   },4000);
 }
 
@@ -131,6 +138,7 @@ function squareAlreadyFull() {
 }
 
 const boxValue = {};
+let winnerVariable = false;
 function didWeWin () {
   answerSlots.forEach((value, index) => {
     index++;
@@ -188,11 +196,61 @@ function didWeWin () {
 
   console.log(size);   // this Object.keys(object).length allows us to see the size of an object.
 
-}
-
-
-function reloader(result) {
   
 
-  location.reload();
 }
+
+let score = JSON.parse(localStorage.getItem('score')) || {
+  wins: 0,
+  losses: 0,
+  ties: 0
+}
+
+function reloader(result) {
+  if(result === -1) {
+    playerSelectTextRemove();   // when the computer wins, we have to remove this text.
+  }
+
+  if(result === 1) {
+    score.wins++;
+  } else if (result === 0) {
+    score.ties++;
+  } else {
+    score.losses++;
+  }
+
+  winnerVariable = true;    // now that this is set to true (this was initialized above the didWeWin function) we can stop the computer from thinking and anything else from running.
+
+  updateScoreElement();
+
+  localStorage.setItem('score', JSON.stringify(score));
+
+  const p = document.createElement("p");                                    // Adding a lil message to the score div used in updateScoreElement()
+  p.textContent = "Get ready to play again in 5 seconds....."
+  document.querySelector('.js-player-text-container').append(p);
+
+  document.querySelector('.reset-grouping').remove();     // temporarily remove the reset button
+
+  setTimeout(() => {
+    location.reload();
+  }, 5000);
+
+}
+
+function updateScoreElement() {
+  document.querySelector('.js-score').innerHTML = `You've won ${score.wins} times, lost ${score.losses} times, and tied ${score.ties} times. `
+}
+
+
+/* reset code */
+
+document.querySelector('.js-reset-score').addEventListener('click', () => {
+  const resetElement = document.querySelector('.js-reset-text');
+  resetElement.innerHTML = "Score has been reset dude!"
+
+  localStorage.removeItem('score');
+  
+  setTimeout(() => {
+    resetElement.innerHTML = ""
+  }, 2000);
+})

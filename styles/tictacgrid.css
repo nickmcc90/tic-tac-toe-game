@@ -1,5 +1,5 @@
-body {
-  background-color: grey;
+body {      /* this is for when I was working on this code at night and the white ass background was blaring my eyes lol */
+  background-color: white;
 }
 
 .tic-tac-toe-entire-flex {
@@ -77,4 +77,34 @@ body {
 
 .question {
   font-size: 19px;
+}
+
+.reset-score {
+  padding: 7px;
+  height: 50px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+.reset-score:active {
+  margin-top: 3px;
+  margin-left: 3px;
+}
+
+.reset-grouping {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 70px;
+  width: 500px;
+  height: 200px;
+  justify-content: space-between;
+
+}
+
+.reset-text {
+  font-size: 25px;
 }
