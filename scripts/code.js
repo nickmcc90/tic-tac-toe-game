@@ -1,3 +1,6 @@
+let catcher = {placeholder: 0}; // used in display squares
+let size = Object.keys(catcher).length;
+
 const classes = ['.js-one-one', '.js-two-one', '.js-three-one', '.js-one-two', '.js-two-two', '.js-three-two', '.js-one-three', '.js-two-three', '.js-three-three'];
 
 const answerSlots = ['.js-one', '.js-two', '.js-three', '.js-four', '.js-five', '.js-six', '.js-seven', '.js-eight', '.js-nine'];
@@ -52,6 +55,10 @@ function computerMove() {
 
 
     timerId = setTimeout(() => {
+      if(size === 9) {
+        playerSelectTextRemove();   //special case where the computer ties it up, last move.
+        console.log("it worked")
+      }
       displaySquares(space, 'O');
       didWeWin();    // We check to see if the computer won AFTER it placed it's move.
     }, 4000);
@@ -63,7 +70,6 @@ function computerMove() {
 }
 
 let i = 0;    // variable for if the output chosen by the computer has been chosen before
-let catcher = {};
 function displaySquares(output, choice) {
   if(output === 'none') {       // this is a one-off condition if we hit the 'Me' button at the beginning
     console.log('Begin!')
@@ -72,12 +78,13 @@ function displaySquares(output, choice) {
     if(catcher[output] === true && choice === 'X') {    // this is for the human, if they click a square thats already taken. Humans only choose x.
         return false;       // the function will return false if the human chooses a picked square.
     } else {    // this is for the computer
-      while(output in catcher) {          // if the computer chooses a slot already, we make a different one. In operator only works with objects.
+      while(output in catcher && output !== null) {          // if the computer chooses a slot already, we make a different one. In operator only works with objects.
+        i = Math.round(Math.random() * 100) % 9;
         output = answerSlots[i];
-        i++;
+        console.log(i);
         console.log(output);
       }
-      i = 0;
+      i = (Math.random() * 100) % 9;
       catcher[output] = true;     // storing the output into array. putting the output in AFTER we check to see if it's already in there.
       console.log(catcher);     // debugging
       document.querySelector(output).innerHTML = choice;
@@ -146,9 +153,8 @@ function didWeWin () {
   })
   console.log(boxValue);
   
-  // There are 16 possible win combinations.... I gotta list them all out here, so forgive the code for being extra long.
-  let size = Object.keys(catcher).length;   
-
+  // There are 16 possible win combinations.... I gotta list them all out here, so forgive the code for being extra long. 
+  size = Object.keys(catcher).length;
   // first checking the vertical possibilities...
   if(boxValue[1] === "X" && boxValue[2] === "X" && boxValue[3] === "X") {
     reloader(1);    // signifies a win
@@ -189,7 +195,7 @@ function didWeWin () {
 
   
 
-  if((size === 9)) {      // if the catcher object has 9 values, that's means that the board is filled up. Tie! This has to run last.
+  if((size === 10)) {      // if the catcher object has 9 values, that's means that the board is filled up. Tie! This has to run last.
     reloader(0)   // signifies a tie
     console.log("It's a tie!");
   } 
@@ -248,9 +254,14 @@ document.querySelector('.js-reset-score').addEventListener('click', () => {
   const resetElement = document.querySelector('.js-reset-text');
   resetElement.innerHTML = "Score has been reset dude!"
 
-  localStorage.removeItem('score');
+  score = {
+    wins: 0,
+    losses: 0,
+    ties: 0
+  };
   
   setTimeout(() => {
-    resetElement.innerHTML = ""
+    resetElement.innerHTML = "";
   }, 2000);
 })
+
